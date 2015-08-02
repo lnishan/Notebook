@@ -22,10 +22,7 @@ void dfs(int vi)
 	low[vi] = dfn[vi];
 	stk[++top] = vi;
 	instk[vi] = 1;
-	int i, sz = g[vi].size();
-	for (i = 0; i < sz; i++)
-	{
-		int &vj = g[vi][i];
+	for (auto &vj: g[vi])
 		if (dfn[vj] == -1)
 		{
 			dfs(vj);
@@ -33,7 +30,6 @@ void dfs(int vi)
 		}
 		else if (instk[vj])
 			low[vi] = min(low[vi], dfn[vj]);
-	}
 	if (low[vi] == dfn[vi])
 	{
 		scc_cnt++;
@@ -49,7 +45,7 @@ void dfs(int vi)
 
 int main()
 {
-	int i, j;
+	int i;
 	int v1, v2, dir;
 	while (scanf("%d%d", &vs, &es) == 2 && (vs | es))
 	{
@@ -71,4 +67,4 @@ int main()
 		printf("%d\n", scc_cnt == 1);
 	}
 	return 0;
-}	
+}

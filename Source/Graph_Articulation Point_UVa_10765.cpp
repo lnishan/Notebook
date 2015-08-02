@@ -27,10 +27,8 @@ int dfs(int p, int vi)
 {
 	dfn[vi] = ++t;
 	low[vi] = dfn[vi];
-	int i, ch = 0, cnt = 0, sz = g[vi].size();
-	for (i = 0; i < sz; i++)
-	{
-		int &vj = g[vi][i];
+	int ch = 0, cnt = 0;
+	for (auto &vj: g[vi])
 		if (dfn[vj] == -1)
 		{
 			++ch;
@@ -40,7 +38,6 @@ int dfs(int p, int vi)
 		}
 		else if (vj != p)
 			low[vi] = min(low[vi], dfn[vj]);
-	}
 	if (p != -1) // not root
 	{
 		if (cnt) ans[vi].second = cnt+1;
@@ -54,7 +51,7 @@ int dfs(int p, int vi)
 
 int main()
 {
-	int i, j, m, v1, v2;
+	int i, m, v1, v2;
 	while (scanf("%d%d", &vs, &m) == 2 && (vs | m))
 	{
 		t = 0;

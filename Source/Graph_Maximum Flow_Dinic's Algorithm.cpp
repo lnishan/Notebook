@@ -11,7 +11,6 @@ using namespace std;
 struct edge{ int to, res, rev; };
 vector<edge> g[MAX_V];
 int lvl[MAX_V];
-queue<int> q;
 int iter[MAX_V];
 
 void addEdge(int from, int to, int fcap, int bcap)
@@ -28,25 +27,20 @@ void doFlow(edge &e, int f)
 
 int bfs(const int &src, const int &sink)
 {
-	int i, sz, qi;
+	int qi;
+	queue<int> q;
 	memset(lvl, -1, sizeof(lvl));
-	while (!q.empty()) q.pop();
 	lvl[src] = 0;
 	q.push(src);
 	while (!q.empty())
 	{
-		qi = q.front();
-		sz = g[qi].size();
-		for (i = 0; i < sz; i++)
-		{
-			edge &e = g[qi][i];
+		qi = q.front(); q.pop();
+		for (auto &e: g[qi])
 			if (e.res > 0 && lvl[e.to] < 0)
 			{
 				lvl[e.to] = lvl[qi] + 1;
 				q.push(e.to);
 			}
-		}
-		q.pop();
 	}
 	return lvl[sink];
 }
@@ -54,7 +48,7 @@ int bfs(const int &src, const int &sink)
 int dfs(int idx, int minF, const int &dest)
 {
 	if (idx == dest) return minF;
-	int i, sz = g[idx].size(), ret;
+	int sz = g[idx].size(), ret;
 	for (int &i = iter[idx]; i < sz; i++)
 	{
 		edge &e = g[idx][i];
