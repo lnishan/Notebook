@@ -13,7 +13,7 @@ class hasher
 {
 private:
     const int hmask;
-    vector<int> lk; // lookup table
+    vector<vector<int> > lk; // lookup table
     
     inline int get_rand()
     {
@@ -22,18 +22,24 @@ private:
 public:
     hasher(const int &hbits)
         : hmask((1 << hbits) - 1)
-        , lk(1 << 16)
+        , lk((sizeof(S) + 1) >> 1)
     {
         srand(12345678);
-        for (auto &lk_i: lk) lk_i = get_rand();
+        int i, segs = (sizeof(S) + 1) >> 1;
+        for (i = 0; i < segs; i++)
+        {
+            lk[i].resize(1 << 16);
+            for (auto &lk_ij: lk[i])
+                lk_ij = get_rand();
+        }
     }
     
     inline int get_hash(const S &key)
     {
-        int ret = 0;
+        int i, ret = 0;
         unsigned short *it = (unsigned short*) &key;
-        for (int i = 2; i <= sizeof(S); i += 2, it++) ret ^= lk[*it];
-        if (sizeof(S) & 1) ret ^= lk[*((unsigned char *)it)]; // is not a multiple of 16bits
+        for (i = 0; i < (sizeof(S) >> 1); i++, it++) ret ^= lk[i][*it];
+        if (sizeof(S) & 1) ret ^= lk[i][*((unsigned char *)it)]; // is not a multiple of 16bits
         return ret;
     }
 /* for integer types
@@ -108,7 +114,6 @@ public:
     {
         fill(hkey.begin(), hkey.end(), -1);
     }
-    
     
 };
 
