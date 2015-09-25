@@ -17,4 +17,4 @@ set number
 set showmatch
 set hls
 
-nmap <F9> :w <bar> :! g++ % -std=c++11 -O2 -Wall<CR> <bar>  :! ./a.out<CR>
+nmap <F9> :w <bar> :! g++ % -std=c++11 -O2 -Wall && ./a.out<CR>
