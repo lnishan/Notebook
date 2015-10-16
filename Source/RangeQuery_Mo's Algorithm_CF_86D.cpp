@@ -22,9 +22,8 @@ ull que[200005];
 bool mo_cmp(pair<pii, int> l, pair<pii, int> r)
 {
 	const pii &a = l.first, &b = r.first;
-	return a.first / sq != b.first / sq ?
-		a.first / sq < b.first / sq
-		 : a.second < b.second;
+	int asq = a.first / sq, bsq = b.first / sq;
+	return asq != bsq ? asq < bsq : ((asq & 1) ? a.second < b.second : a.second > b.second);
 }
 
 void add(int i, int j)
