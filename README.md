@@ -1,20 +1,24 @@
 # Notebook / ACM-ICPC Contest Template
-This is our notebook for attending programming contests.  
-I'm actively updating and adding new stuff in.
+This is a notebook for attending programming contests.  
+This was initially started by me, and continued with my ex-teammate Pin-Wei Liao (pwliao).
 
 Feel free to drop me a question or suggestion if any :)
 
-- lnishan, Proud captain of NCTU_Ravenclaw.
 
 ## Usage
+
+### Cloning
 ```
-// Cloning
 git clone https://github.com/lnishan/Notebook.git
+```
+### Editing
+```
 cd Notebook
-
-// Editing
 vim codebook.tex
+```
 
-// Building
+### Building
+```
 make
 ```
+Dependencies: texlive, texlive-collection-basic, texlive-collection-latex, texlive-collection-latexrecommended, texlive-collection-fontsrecommended, texlive-collection-fontsextra.
